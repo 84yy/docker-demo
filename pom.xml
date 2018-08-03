@@ -22,6 +22,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <!--指定启动类-->
+        <start-class>com.hzm.dockerdemo.DockerDemoApplication</start-class>
+        <!--用于构建镜像时不在maven私服生成jar-->
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <dependencies>
@@ -42,14 +46,26 @@
         </dependency>
     </dependencies>
 
+
     <build>
+        <!--应用名请更改成项目的实际模块名-->
+        <finalName>docker-demo</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!--用于识别当前的项目的git分支/标签名-->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+            </plugin>
+            <!--将应用制作docker镜像并push到docker仓库-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
-
 
 </project>
